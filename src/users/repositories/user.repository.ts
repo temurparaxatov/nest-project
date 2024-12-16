@@ -24,6 +24,15 @@ export class UsersRepository {
     return user;
   }
 
+  async findbyEmail(email: string): Promise<User> {
+    try {
+      const userbyEmail = await this.usersModel.findOne({ email });
+      return userbyEmail;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
   async update(id: string, data: UpdateUserDto): Promise<User> {
     const updatedUser = await this.usersModel.findByIdAndUpdate(id, data, {
       new: true,
