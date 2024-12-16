@@ -7,7 +7,7 @@ import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UsersRepository {
-  constructor(@InjectModel('users') private usersModel: Model<User>) {}
+  constructor(@InjectModel(User.name) private usersModel: Model<User>) {}
   async create(data: CreateUserDto): Promise<User> {
     const newUser = await this.usersModel.create(data);
     await newUser.save();

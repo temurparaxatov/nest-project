@@ -10,6 +10,8 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthRoles } from 'src/guards/auth.role.guard';
+import { Role } from 'src/enums/role.enum';
 
 @Controller('users')
 export class UsersController {
@@ -34,7 +36,7 @@ export class UsersController {
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
-
+  @AuthRoles(Role.Admin, Role.User)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
